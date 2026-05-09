@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900" role="img" aria-label="F1 The Movie poster art">
+  <defs>
+    <linearGradient id="poster" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#050505"/><stop offset=".42" stop-color="#23120b"/><stop offset=".72" stop-color="#8a1c00"/><stop offset="1" stop-color="#ff7a00"/></linearGradient>
+    <radialGradient id="flood" cx="55%" cy="18%" r="48%"><stop stop-color="#fff8dc"/><stop offset=".22" stop-color="#ffb15d" stop-opacity=".8"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+    <linearGradient id="road" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#3f3f46"/><stop offset="1" stop-color="#020202"/></linearGradient>
+  </defs>
+  <rect width="600" height="900" fill="url(#poster)"/>
+  <rect width="600" height="900" fill="#000" opacity=".26"/>
+  <circle cx="330" cy="154" r="265" fill="url(#flood)"/>
+  <path d="M0 508c133-52 250-58 377-25 87 22 154 20 223-1v418H0z" fill="url(#road)" opacity=".95"/>
+  <path d="M250 494 114 900h78l112-382m52-25 94 407h83L411 487" fill="#ffb15d" opacity=".26"/>
+  <g transform="translate(90 454) skewX(-10)">
+    <path d="M0 69h329c38 0 71 21 85 55l22 53H72L0 69z" fill="#050505"/>
+    <path d="M86 31h158c61 0 111 22 147 61H46c8-38 23-61 40-61z" fill="#ff7a00"/>
+    <path d="M131 62h122" stroke="#fff" stroke-width="13" stroke-linecap="round" opacity=".82"/>
+    <circle cx="105" cy="196" r="48" fill="#050505" stroke="#ffb15d" stroke-width="11"/>
+    <circle cx="355" cy="196" r="48" fill="#050505" stroke="#ffb15d" stroke-width="11"/>
+  </g>
+  <path d="M60 382h194M348 356h170" stroke="#ffb15d" stroke-width="12" stroke-linecap="round" opacity=".72"/>
+  <text x="300" y="705" fill="#fff" font-family="Poppins, Arial, sans-serif" font-size="102" font-weight="900" text-anchor="middle" letter-spacing="8">F1</text>
+  <text x="300" y="762" fill="#ffb15d" font-family="Poppins, Arial, sans-serif" font-size="32" font-weight="800" text-anchor="middle" letter-spacing="5">THE MOVIE</text>
+  <text x="300" y="824" fill="#d4d4d8" font-family="Poppins, Arial, sans-serif" font-size="18" font-weight="700" text-anchor="middle">Sports • Action • Premium Racing Hall</text>
+</svg>

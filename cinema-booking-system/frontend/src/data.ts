@@ -2,19 +2,19 @@ import type { Booking, Cinema, FoodItem, Movie, Seat, Show } from './types/domai
 
 export const movies: Movie[] = [
   {
-    id: 'dune-2',
-    title: 'Dune: Part Two',
+    id: 'f1-the-movie',
+    title: 'F1: The Movie',
     status: 'NOW_SHOWING',
-    genre: 'Sci‑Fi, Adventure',
+    genre: 'Sports, Action, Drama',
     language: 'English',
-    rating: 8.8,
-    duration: '2h 46m',
+    rating: 8.2,
+    duration: '2h 35m',
     ageRating: 'PG-13',
-    poster: '/movie-art/dune-poster.svg',
-    banner: '/movie-art/dune-banner.svg',
-    synopsis: 'Paul Atreides unites with Chani and the Fremen while seeking revenge against the conspirators who destroyed his family.',
-    trailerUrl: 'https://www.youtube.com/watch?v=Way9Dexny3w',
-    cast: ['Timothée Chalamet', 'Zendaya', 'Rebecca Ferguson', 'Javier Bardem'],
+    poster: '/movie-art/f1-poster.svg',
+    banner: '/movie-art/f1-banner.svg',
+    synopsis: 'A retired Formula One driver returns to mentor a rookie prodigy as their team chases one last podium under the floodlights.',
+    trailerUrl: 'https://www.youtube.com/watch?v=CT2_P2DZBR0',
+    cast: ['Brad Pitt', 'Damson Idris', 'Kerry Condon', 'Javier Bardem'],
   },
   {
     id: 'superman-skybound',
@@ -131,8 +131,8 @@ export const cinemas: Cinema[] = [
 ];
 
 export const shows: Show[] = [
-  { id: 'show-1', movieId: 'dune-2', cinemaId: 'cairo-festival', hall: 'Screen 5', date: '2026-05-23', time: '7:50 PM', basePrice: 24, occupancy: 72 },
-  { id: 'show-2', movieId: 'dune-2', cinemaId: 'citystars', hall: 'Screen 2', date: '2026-05-24', time: '10:20 PM', basePrice: 26, occupancy: 64 },
+  { id: 'show-1', movieId: 'f1-the-movie', cinemaId: 'cairo-festival', hall: 'Screen 5', date: '2026-05-23', time: '8:30 PM', basePrice: 28, occupancy: 76 },
+  { id: 'show-2', movieId: 'f1-the-movie', cinemaId: 'citystars', hall: 'Screen 2', date: '2026-05-24', time: '10:45 PM', basePrice: 30, occupancy: 68 },
   { id: 'show-3', movieId: 'rover', cinemaId: 'mall-arabia', hall: 'Screen 8', date: '2026-05-25', time: '12:30 PM', basePrice: 18, occupancy: 51 },
   { id: 'show-4', movieId: 'superman-skybound', cinemaId: 'cairo-festival', hall: 'Sky Hall', date: '2026-05-23', time: '6:30 PM', basePrice: 25, occupancy: 69 },
   { id: 'show-5', movieId: 'superman-skybound', cinemaId: 'gotham-imax', hall: 'IMAX 1', date: '2026-05-24', time: '9:45 PM', basePrice: 31, occupancy: 78 },
@@ -170,7 +170,7 @@ export const demoBooking: Booking = {
   cinema: cinemas[0],
   show: shows[0],
   seats: seats.filter((seat) => ['A5', 'C6', 'F7'].includes(seat.id)).map((seat) => ({ ...seat, state: 'selected' })),
-  total: 72,
+  total: 78,
   status: 'CONFIRMED',
-  qrCode: 'BK45-DUNE-2026-05-23-A5-C6-F7',
+  qrCode: 'BK45-F1-2026-05-23-A5-C6-F7',
 };

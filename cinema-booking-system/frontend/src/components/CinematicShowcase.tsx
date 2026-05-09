@@ -47,9 +47,9 @@ export function CinematicHero({ movie }: { movie: Movie }) {
             </Link>
           </div>
           <div className="mt-6 grid grid-cols-3 gap-2 text-center md:max-w-lg">
-            <HeroStat value="8.8" label="Audience" />
-            <HeroStat value="4DX" label="Premium" />
-            <HeroStat value="07:50" label="Tonight" />
+            <HeroStat value={movie.rating.toFixed(1)} label="Audience" />
+            <HeroStat value="IMAX" label="Premium" />
+            <HeroStat value="8:30" label="Tonight" />
           </div>
         </div>
 
