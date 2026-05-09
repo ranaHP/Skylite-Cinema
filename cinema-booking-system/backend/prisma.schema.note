@@ -1,0 +1,1 @@
+Prisma schema lives at src/prisma/schema.prisma. Use `prisma --schema src/prisma/schema.prisma` if running commands directly.

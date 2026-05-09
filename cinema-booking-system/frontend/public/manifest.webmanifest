@@ -1,0 +1,19 @@
+{
+  "name": "Movie Hub / Lite Cinema",
+  "short_name": "Movie Hub",
+  "description": "Premium cinema ticket booking app with realtime seats, food ordering, and QR tickets.",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "categories": ["entertainment", "movies", "tickets"],
+  "icons": [
+    {
+      "src": "/pwa-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
