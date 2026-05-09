@@ -1,3 +1,156 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
-@tailwind base;@tailwind components;@tailwind utilities;
-:root{color-scheme:dark;background:#000}*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(circle at 50% -10%,rgba(255,122,0,.32),transparent 32%),radial-gradient(circle at 0 45%,rgba(95,41,0,.28),transparent 30%),#000;color:#fff;font-family:Poppins,Inter,system-ui,sans-serif}.glass{border:1px solid rgba(255,122,0,.25);background:linear-gradient(145deg,rgba(18,18,18,.88),rgba(7,7,7,.72));box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 24px 60px rgba(0,0,0,.45);backdrop-filter:blur(22px)}.ember-text{background:linear-gradient(90deg,#ffb15d,#ff7a00 45%,#9f4200);-webkit-background-clip:text;background-clip:text;color:transparent}.safe-bottom{padding-bottom:max(1rem,env(safe-area-inset-bottom))}.cinema-scroll::-webkit-scrollbar{height:8px;width:8px}.cinema-scroll::-webkit-scrollbar-thumb{background:rgba(255,122,0,.45);border-radius:999px}.screen-arc{height:44px;border-top:2px solid #ff7a00;border-radius:50% 50% 0 0;filter:drop-shadow(0 -8px 18px rgba(255,122,0,.35))}.poster-mask{mask-image:linear-gradient(#000 70%,transparent)}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  background: #000000;
+  --mobile-shell-width: 430px;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  background: #000000;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background:
+    radial-gradient(circle at 50% -10%, rgba(255, 122, 0, 0.32), transparent 32%),
+    radial-gradient(circle at 0 45%, rgba(95, 41, 0, 0.28), transparent 30%),
+    #000000;
+  color: #ffffff;
+  font-family: Poppins, Inter, system-ui, sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+button,
+a,
+input,
+select,
+textarea {
+  touch-action: manipulation;
+}
+
+.mobile-app-shell {
+  width: 100%;
+  max-width: var(--mobile-shell-width);
+  margin-inline: auto;
+  min-height: 100dvh;
+  position: relative;
+}
+
+@media (min-width: 768px) {
+  .mobile-app-shell {
+    max-width: 80rem;
+  }
+}
+
+.mobile-page {
+  padding-inline: clamp(1rem, 4vw, 1.5rem);
+  padding-bottom: calc(6.75rem + var(--safe-bottom));
+}
+
+@media (min-width: 768px) {
+  .mobile-page {
+    padding-inline: 1rem;
+    padding-bottom: 2.5rem;
+  }
+}
+
+.mobile-sticky-header {
+  padding-top: max(0.75rem, var(--safe-top));
+}
+
+.glass {
+  border: 1px solid rgba(255, 122, 0, 0.25);
+  background: linear-gradient(145deg, rgba(18, 18, 18, 0.88), rgba(7, 7, 7, 0.72));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07), 0 24px 60px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(22px);
+}
+
+.ember-text {
+  background: linear-gradient(90deg, #ffb15d, #ff7a00 45%, #9f4200);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.safe-bottom {
+  padding-bottom: max(1rem, var(--safe-bottom));
+}
+
+.mobile-hit-target {
+  min-width: 44px;
+  min-height: 44px;
+}
+
+.mobile-card-snap {
+  scroll-snap-align: start;
+}
+
+.cinema-scroll {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+}
+
+.cinema-scroll::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+
+.cinema-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 122, 0, 0.45);
+  border-radius: 999px;
+}
+
+.screen-arc {
+  height: 44px;
+  border-top: 2px solid #ff7a00;
+  border-radius: 50% 50% 0 0;
+  filter: drop-shadow(0 -8px 18px rgba(255, 122, 0, 0.35));
+}
+
+.poster-mask {
+  mask-image: linear-gradient(#000 70%, transparent);
+}
+
+.mobile-poster-rail {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(148px, 42vw);
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .mobile-poster-rail {
+    grid-auto-flow: initial;
+    grid-auto-columns: initial;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    overflow: visible;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
+}

@@ -39,6 +39,10 @@ The customer site runs at `http://localhost:5173`, the API at `http://localhost:
 - Role-scoped admin APIs and customer booking UX.
 - Mobile-first premium UI with desktop admin layouts.
 
+## Mobile app preview
+
+The frontend is mobile-first and includes standalone web-app metadata. To test on a phone, run the dev server, open the Vite URL from a device on the same Wi-Fi, and follow `docs/MOBILE_PREVIEW.md` for LAN API/CORS settings.
+
 ## Commands
 
 ```bash
@@ -48,4 +52,4 @@ npm run typecheck # TypeScript validation
 npm run seed      # seed Prisma database
 ```
 
-See `docs/API.md` and `docs/DEPLOYMENT.md` for integration and production guidance.
+See `docs/API.md`, `docs/DEPLOYMENT.md`, and `docs/MOBILE_PREVIEW.md` for integration, production, and mobile-device testing guidance.
