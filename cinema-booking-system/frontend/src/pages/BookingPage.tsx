@@ -1,7 +1,7 @@
 import { useMemo, useState, type ReactNode } from 'react';
 import { motion } from 'framer-motion';
 import { Link, useParams } from 'react-router-dom';
-import { Building2, CalendarDays, Check, ChevronRight, Clock3, Heart, MapPin, ShieldCheck, Sparkles, type LucideIcon } from 'lucide-react';
+import { Building2, CalendarDays, Check, ChevronRight, Clock3, Heart, MapPin, Radar, ShieldCheck, Sparkles, Timer, type LucideIcon } from 'lucide-react';
 import { SeatMap } from '../components/SeatMap';
 import { cinemas, movies, seats, shows } from '../data';
 import type { Seat, Show } from '../types/domain';
@@ -84,6 +84,12 @@ export function BookingPage() {
       </section>
 
       <BookingStepper activeStep={activeStep} />
+
+      <div className="mt-4 grid gap-3 md:grid-cols-3">
+        <BookingInsight icon={Timer} label="Seat lock timer" value="07:00 auto-release" />
+        <BookingInsight icon={Radar} label="Smart pick" value="Center premium rows recommended" />
+        <BookingInsight icon={ShieldCheck} label="Double-booking guard" value="Realtime lock validation active" />
+      </div>
 
       <div className="mt-5 grid min-w-0 gap-5 lg:grid-cols-[410px_1fr]">
         <aside className="min-w-0 space-y-4">
@@ -181,6 +187,20 @@ export function BookingPage() {
         </section>
       </div>
     </div>
+  );
+}
+
+function BookingInsight({ icon: Icon, label, value }: { icon: LucideIcon; label: string; value: string }) {
+  return (
+    <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="glass flex items-center gap-3 rounded-2xl p-3">
+      <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-ember/15 text-ember">
+        <Icon size={18} />
+      </div>
+      <div className="min-w-0">
+        <p className="text-[11px] uppercase tracking-[0.18em] text-muted">{label}</p>
+        <p className="truncate text-sm font-bold">{value}</p>
+      </div>
+    </motion.div>
   );
 }
 

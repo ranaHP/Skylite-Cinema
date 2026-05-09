@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import { BottomNav, TopNav } from '../components/Navigation';
+import { PageTransition } from '../components/PageTransition';
 import { ScrollToTop } from '../components/ScrollToTop';
 
 export function AppLayout() {
@@ -7,9 +8,9 @@ export function AppLayout() {
     <div className="mobile-app-shell">
       <ScrollToTop />
       <TopNav />
-      <main className="mobile-page min-h-screen">
+      <PageTransition className="mobile-page min-h-screen">
         <Outlet />
-      </main>
+      </PageTransition>
       <BottomNav />
     </div>
   );

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900" role="img" aria-label="Dune Part Two poster art">
+  <defs>
+    <linearGradient id="sand" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffb15d"/><stop offset=".45" stop-color="#7b3500"/><stop offset="1" stop-color="#080402"/></linearGradient>
+    <radialGradient id="sun" cx="50%" cy="28%" r="36%"><stop stop-color="#ffd28b"/><stop offset=".5" stop-color="#ff7a00" stop-opacity=".55"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="600" height="900" fill="#050201"/>
+  <rect width="600" height="900" fill="url(#sand)" opacity=".92"/>
+  <circle cx="300" cy="240" r="220" fill="url(#sun)"/>
+  <path d="M0 535c95-44 172-58 278-24 119 38 202 7 322-49v438H0z" fill="#160903" opacity=".9"/>
+  <path d="M-20 620c160-68 307-61 640 10v270H-20z" fill="#020202" opacity=".88"/>
+  <path d="M179 395c47-118 192-118 240 0l38 95H142z" fill="#20100a" opacity=".86"/>
+  <path d="M289 320h24v248h-24z" fill="#ffb15d" opacity=".78"/>
+  <path d="M227 496c35 24 108 26 150 0" fill="none" stroke="#ff7a00" stroke-width="9" stroke-linecap="round" opacity=".8"/>
+  <text x="300" y="720" fill="#fff" font-family="Poppins, Arial, sans-serif" font-size="54" font-weight="800" text-anchor="middle" letter-spacing="8">DUNE</text>
+  <text x="300" y="770" fill="#ffb15d" font-family="Poppins, Arial, sans-serif" font-size="28" font-weight="700" text-anchor="middle" letter-spacing="4">PART TWO</text>
+  <text x="300" y="828" fill="#b3b3b3" font-family="Poppins, Arial, sans-serif" font-size="18" text-anchor="middle">Sci-Fi • Adventure • Premium Hall</text>
+</svg>

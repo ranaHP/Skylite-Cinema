@@ -10,6 +10,10 @@ import {
   Settings,
   Ticket,
   UserRound,
+  FileText,
+  UploadCloud,
+  CalendarPlus,
+  ClipboardCheck,
 } from 'lucide-react';
 
 const customer = [
@@ -23,7 +27,11 @@ const customer = [
 const admin = [
   { to: '/admin', label: 'Dashboard', icon: BarChart3 },
   { to: '/admin/movies', label: 'Movies', icon: Film },
-  { to: '/admin/shows', label: 'Shows', icon: Ticket },
+  { to: '/admin/shows', label: 'Shows', icon: CalendarPlus },
+  { to: '/admin/bookings', label: 'Bookings', icon: ClipboardCheck },
+  { to: '/admin/customers', label: 'Customers', icon: UserRound },
+  { to: '/admin/content', label: 'Content', icon: FileText },
+  { to: '/admin/files', label: 'Files', icon: UploadCloud },
   { to: '/admin/settings', label: 'Settings', icon: Settings },
 ];
 
@@ -106,7 +114,7 @@ export function BottomNav() {
 
 export function AdminSidebar() {
   return (
-    <aside className="glass sticky top-6 hidden h-[calc(100vh-3rem)] w-72 shrink-0 rounded-[32px] p-4 lg:block">
+    <aside className="glass cinema-scroll sticky top-6 hidden h-[calc(100vh-3rem)] w-72 shrink-0 overflow-y-auto rounded-[32px] p-4 lg:block">
       <Link to="/" className="mb-8 block px-3 text-2xl font-extrabold">
         Lite <span className="ember-text">Cinema</span>
       </Link>

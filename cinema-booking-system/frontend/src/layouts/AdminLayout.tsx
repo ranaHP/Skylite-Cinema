@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import { AdminSidebar } from '../components/Navigation';
+import { PageTransition } from '../components/PageTransition';
 import { ScrollToTop } from '../components/ScrollToTop';
 
 export function AdminLayout() {
@@ -7,9 +8,9 @@ export function AdminLayout() {
     <main className="mx-auto flex max-w-7xl gap-6 px-4 py-6">
       <ScrollToTop />
       <AdminSidebar />
-      <section className="min-w-0 flex-1">
+      <PageTransition className="min-w-0 flex-1">
         <Outlet />
-      </section>
+      </PageTransition>
     </main>
   );
 }
