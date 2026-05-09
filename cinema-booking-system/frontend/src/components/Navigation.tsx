@@ -14,6 +14,7 @@ import {
   UploadCloud,
   CalendarPlus,
   ClipboardCheck,
+  Palette,
 } from 'lucide-react';
 
 const customer = [
@@ -32,6 +33,7 @@ const admin = [
   { to: '/admin/customers', label: 'Customers', icon: UserRound },
   { to: '/admin/content', label: 'Content', icon: FileText },
   { to: '/admin/files', label: 'Files', icon: UploadCloud },
+  { to: '/admin/design-system', label: 'Design System', icon: Palette },
   { to: '/admin/settings', label: 'Settings', icon: Settings },
 ];
 

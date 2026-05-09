@@ -15,21 +15,32 @@ import {
 } from 'recharts';
 import type { LucideIcon } from 'lucide-react';
 import {
+  Armchair,
   BellRing,
+  Calendar,
   CalendarClock,
   CalendarPlus,
   CheckCircle2,
+  Code2,
   Clock3,
   Edit3,
   FileText,
+  Grid2X2,
+  Heart,
+  Home,
   Film,
   Megaphone,
+  Menu,
+  Palette,
   PauseCircle,
   PhoneCall,
   Popcorn,
+  Search,
+  Star,
   ShieldCheck,
   Ticket,
   UploadCloud,
+  UserRound,
   Users,
 } from 'lucide-react';
 import { cinemas, food, movies, shows } from '../data';
@@ -235,6 +246,207 @@ export function AdminFiles() {
       <Panel title="Asset library" action="Review queue">
         <AdminTable headers={['File', 'Type', 'Size', 'Status']} rows={assets.map((asset) => [asset.name, asset.type, asset.size, asset.status])} />
       </Panel>
+    </div>
+  );
+}
+
+
+export function AdminDesignSystem() {
+  const colorGroups = [
+    { title: 'Primary', swatches: [{ hex: '#5F2900' }, { hex: '#412302' }, { hex: '#412506' }] },
+    { title: 'Background', swatches: [{ hex: '#000000' }, { hex: '#121212' }] },
+    { title: 'Text', swatches: [{ hex: '#FFFFFF' }, { hex: '#B3B3B3' }] },
+  ];
+  const typeRows = [
+    ['H1', 'Heading 1', '32px / Bold'],
+    ['H2', 'Heading 2', '24px / SemiBold'],
+    ['H3', 'Heading 3', '20px / SemiBold'],
+    ['Body 1', '', '16px / Regular'],
+    ['Body 2', '', '14px / Regular'],
+    ['Caption', '', '12px / Regular'],
+  ];
+  const spacingScale = [4, 8, 12, 16, 20, 24, 32, 48, 64];
+  const radiusScale = [4, 8, 12, 16, 24, 32, 40];
+  const featureCards = [
+    { icon: Palette, title: 'Consistent', text: 'Visual Language' },
+    { icon: Grid2X2, title: 'Reusability &', text: 'Scalability' },
+    { icon: UserRound, title: 'Better User', text: 'Experience' },
+    { icon: Code2, title: 'Efficient Development', text: 'Process' },
+  ];
+  const iconSet = [Home, Calendar, Ticket, Armchair, Heart, Search, CalendarClock, UserRound, Star, Menu];
+
+  return (
+    <div className="design-system-page relative overflow-hidden rounded-[34px] border border-[#5F2900]/45 bg-[#050505] p-4 shadow-[0_0_80px_rgba(95,41,0,.22)] md:p-6">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_92%_0%,rgba(95,41,0,.42),transparent_28%),linear-gradient(90deg,rgba(0,0,0,.94),rgba(18,18,18,.9))]" />
+      <div className="relative space-y-4">
+        <section className="grid gap-5 lg:grid-cols-[440px_1fr] lg:items-center">
+          <div>
+            <h1 className="text-4xl font-black uppercase tracking-[-0.04em] md:text-5xl">
+              Design <span className="text-ember">System</span>
+            </h1>
+            <p className="mt-4 max-w-md text-sm leading-7 text-[#B3B3B3] md:text-base">
+              A unified design system that ensures consistency, usability, and a premium experience across the Movie Hub app.
+            </p>
+          </div>
+          <div className="grid rounded-[20px] border border-[#5F2900]/60 bg-[#0A0A0A]/86 md:grid-cols-4">
+            {featureCards.map(({ icon: Icon, title, text }, index) => (
+              <div key={title} className={`p-5 text-center ${index ? 'md:border-l md:border-[#5F2900]/55' : ''}`}>
+                <div className="mx-auto grid h-16 w-16 place-items-center rounded-2xl border border-[#5F2900] bg-[#121212] text-ember shadow-glow">
+                  <Icon size={34} />
+                </div>
+                <p className="mt-3 text-sm font-semibold text-white">{title}</p>
+                <p className="text-sm font-semibold text-white">{text}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="grid gap-4 xl:grid-cols-[1.05fr_1.05fr_1fr]">
+          <DesignPanel number="01" title="Colors">
+            <div className="space-y-4">
+              {colorGroups.map((group) => (
+                <div key={group.title}>
+                  <p className="mb-2 text-sm font-semibold text-white">{group.title}</p>
+                  <div className="flex flex-wrap gap-5">
+                    {group.swatches.map((swatch) => (
+                      <div key={swatch.hex}>
+                        <div className="h-16 w-20 rounded-lg border border-white/10 shadow-inner" style={{ backgroundColor: swatch.hex }} />
+                        <p className="mt-2 text-xs font-semibold text-[#B3B3B3]">{swatch.hex}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+              <div>
+                <p className="mb-2 text-sm font-semibold text-white">Gradient</p>
+                <div className="h-9 rounded-lg border border-[#5F2900] bg-[linear-gradient(90deg,#5F2900,#412302,#412506)]" />
+                <p className="mt-2 text-xs font-semibold text-[#B3B3B3]">#5F2900 <span className="px-3 text-ember">→</span> #412302 <span className="px-3 text-ember">→</span> #412506</p>
+              </div>
+            </div>
+          </DesignPanel>
+
+          <DesignPanel number="02" title="Typography">
+            <div className="flex items-center gap-6 border-b border-white/10 pb-5">
+              <span className="text-7xl font-black leading-none tracking-[-0.08em] text-white">Aa</span>
+              <div className="h-16 w-px bg-[#5F2900]" />
+              <div>
+                <p className="text-xl font-black uppercase text-ember">Poppins</p>
+                <p className="mt-3 flex flex-wrap gap-4 text-xs text-[#B3B3B3]">Bold <span>SemiBold</span> <span>Medium</span> <span>Regular</span></p>
+              </div>
+            </div>
+            <div className="mt-4 divide-y divide-white/10">
+              {typeRows.map(([token, label, spec]) => (
+                <div key={`${token}-${label}`} className="grid grid-cols-[70px_1fr_auto] gap-3 py-2 text-sm">
+                  <span className="font-semibold text-white">{token}</span>
+                  <span className="font-semibold text-white">{label}</span>
+                  <span className="text-[#B3B3B3]">{spec}</span>
+                </div>
+              ))}
+            </div>
+          </DesignPanel>
+
+          <DesignPanel number="03" title="Buttons">
+            <div className="space-y-6">
+              <ButtonSpec label="Primary Button" className="bg-[linear-gradient(180deg,#C75A00,#5F2900)] text-white shadow-[inset_0_1px_0_rgba(255,255,255,.22)]">Book Tickets</ButtonSpec>
+              <ButtonSpec label="Secondary Button" className="border border-ember text-ember">View Details</ButtonSpec>
+              <ButtonSpec label="Tertiary Button" className="border border-white/12 bg-[#121212] text-white">Add to Watchlist</ButtonSpec>
+            </div>
+          </DesignPanel>
+        </section>
+
+        <DesignPanel number="04" title="UI Components">
+          <div className="grid gap-5 lg:grid-cols-[1fr_.75fr_.8fr_1fr]">
+            <div>
+              <p className="mb-3 text-sm font-semibold text-white">Input Fields</p>
+              <div className="space-y-3">
+                <div className="flex items-center gap-3 rounded-lg border border-[#B3B3B3]/45 bg-[#121212] px-3 py-3 text-sm text-[#B3B3B3]"><Search size={18} /> Search movies, theaters...</div>
+                <div className="flex items-center justify-between rounded-lg border border-[#B3B3B3]/45 bg-[#121212] px-3 py-3 text-sm text-[#B3B3B3]"><span className="flex items-center gap-3"><Calendar size={18} /> Select Date</span><span>⌄</span></div>
+              </div>
+            </div>
+            <div className="border-[#5F2900]/55 lg:border-l lg:pl-5">
+              <p className="mb-3 text-sm font-semibold text-white">Chips / Tags</p>
+              <div className="flex flex-wrap gap-3">
+                {['Now Playing', 'Coming Soon', 'Action', 'Drama', 'Thriller'].map((chip, index) => (
+                  <span key={chip} className={`rounded-lg border px-4 py-2 text-sm ${index === 0 ? 'border-[#5F2900] bg-[#5F2900] text-white' : 'border-white/15 bg-[#121212] text-white'}`}>{chip}</span>
+                ))}
+              </div>
+            </div>
+            <div className="border-[#5F2900]/55 lg:border-l lg:pl-5">
+              <p className="mb-3 text-sm font-semibold text-white">Icons</p>
+              <div className="grid grid-cols-5 gap-4">
+                {iconSet.map((Icon, index) => <Icon key={index} className={index === 0 ? 'text-ember' : 'text-white'} size={28} />)}
+              </div>
+            </div>
+            <div className="border-[#5F2900]/55 lg:border-l lg:pl-5">
+              <p className="mb-3 text-sm font-semibold text-white">Card Example</p>
+              <div className="flex items-center gap-4 rounded-xl border border-white/10 bg-[#121212] p-2">
+                <img src={movies[0].poster} alt={movies[0].title} className="h-24 w-32 rounded-lg object-cover" />
+                <div className="min-w-0">
+                  <p className="truncate font-bold text-white">{movies[0].title}</p>
+                  <p className="mt-1 text-sm text-[#B3B3B3]">{movies[0].genre}</p>
+                  <p className="mt-4 inline-flex items-center gap-1 rounded-lg bg-[#5F2900]/65 px-3 py-2 text-sm font-bold text-ember"><Star size={16} fill="currentColor" /> {movies[0].rating}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </DesignPanel>
+
+        <DesignPanel number="05" title="Spacing & Radius">
+          <div className="grid gap-8 lg:grid-cols-[1fr_1.25fr]">
+            <div>
+              <p className="mb-3 text-sm font-semibold text-white">Spacing Scale (px)</p>
+              <div className="flex flex-wrap items-end gap-5">
+                {spacingScale.map((value) => <ScaleSwatch key={value} value={value} />)}
+              </div>
+            </div>
+            <div className="border-[#5F2900]/55 lg:border-l lg:pl-8">
+              <p className="mb-3 text-sm font-semibold text-white">Border Radius (px)</p>
+              <div className="flex flex-wrap gap-6">
+                {radiusScale.map((value) => <RadiusSwatch key={value} value={value} />)}
+              </div>
+            </div>
+          </div>
+        </DesignPanel>
+      </div>
+    </div>
+  );
+}
+
+
+function DesignPanel({ number, title, children }: { number: string; title: string; children: ReactNode }) {
+  return (
+    <section className="rounded-[14px] border border-[#5F2900]/58 bg-[#080808]/92 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,.035)]">
+      <h2 className="mb-5 flex items-center gap-3 text-lg font-black uppercase text-white">
+        <span className="border-b border-ember text-ember">{number}</span> {title}
+      </h2>
+      {children}
+    </section>
+  );
+}
+
+function ButtonSpec({ label, className, children }: { label: string; className: string; children: ReactNode }) {
+  return (
+    <div>
+      <p className="mb-3 text-sm font-semibold text-white">{label}</p>
+      <button type="button" className={`w-full rounded-lg px-5 py-4 text-base font-semibold ${className}`}>{children}</button>
+    </div>
+  );
+}
+
+function ScaleSwatch({ value }: { value: number }) {
+  return (
+    <div className="text-center">
+      <div className="mx-auto rounded bg-[#353535]" style={{ width: Math.max(value / 2, 6), height: Math.max(value / 2, 6) }} />
+      <p className="mt-2 text-xs text-white">{value}</p>
+    </div>
+  );
+}
+
+function RadiusSwatch({ value }: { value: number }) {
+  return (
+    <div className="text-center">
+      <div className="h-12 w-12 border-2 border-ember bg-[#121212]" style={{ borderRadius: value }} />
+      <p className="mt-2 text-xs text-white">{value}</p>
     </div>
   );
 }
