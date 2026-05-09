@@ -12,12 +12,12 @@ export function HomePage() {
       <AnimatedFilmStrip movies={movies} />
 
       <Section title="Featured movies" action="Explore all">
-        <div className="mobile-poster-rail cinema-scroll md:grid md:grid-cols-4 md:gap-4">
+        <div className="featured-movie-rail cinema-scroll">
           {movies.map((movie) => (
             <motion.div
               key={movie.id}
-              className="mobile-card-snap"
-              initial={{ opacity: 0, y: 28 }}
+              className="featured-movie-card mobile-card-snap"
+              initial={{ opacity: 0, y: 22 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-50px' }}
               transition={{ duration: 0.45 }}

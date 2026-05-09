@@ -56,17 +56,25 @@ export function BookingPage() {
   }
 
   return (
-    <div className="mx-auto max-w-6xl py-4 md:py-6">
+    <div className="mx-auto max-w-6xl overflow-hidden py-4 md:py-6">
       <section className="relative mb-5 overflow-hidden rounded-[34px] border border-ember/25 bg-black p-4 shadow-glow md:p-6">
         <img src={movie.banner} alt={`${movie.title} booking banner`} className="absolute inset-0 h-full w-full object-cover opacity-35" />
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-black/25 md:bg-gradient-to-r" />
         <div className="film-grain opacity-20" />
         <div className="relative flex items-start justify-between gap-4">
           <div className="min-w-0">
+            <div className="mb-3 flex flex-wrap items-center gap-2 text-[11px] text-muted">
+              <Link to="/" className="hover:text-ember">Home</Link>
+              <ChevronRight size={13} />
+              <Link to="/movies" className="hover:text-ember">Movies</Link>
+              <ChevronRight size={13} />
+              <span className="text-ember">Booking path</span>
+            </div>
             <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-ember">
               <Sparkles size={14} /> Animated booking studio
             </p>
             <h1 className="mt-2 truncate text-3xl font-black tracking-[-0.04em] md:text-5xl">{movie.title}</h1>
+            <p className="mt-2 max-w-3xl text-sm leading-6 text-white/75 md:text-base">{movie.synopsis}</p>
             <p className="mt-2 text-sm leading-6 text-muted md:max-w-2xl">Choose theater, load showtimes, pick a time, then enter the animated film hall to select seats.</p>
           </div>
           <Link to={`/movies/${movie.id}`} className="mobile-hit-target grid shrink-0 place-items-center rounded-full bg-white/10 backdrop-blur-xl">
@@ -77,8 +85,8 @@ export function BookingPage() {
 
       <BookingStepper activeStep={activeStep} />
 
-      <div className="mt-5 grid gap-5 lg:grid-cols-[410px_1fr]">
-        <aside className="space-y-4">
+      <div className="mt-5 grid min-w-0 gap-5 lg:grid-cols-[410px_1fr]">
+        <aside className="min-w-0 space-y-4">
           <BookingPanel icon={Building2} eyebrow="Step 01" title="Load theaters">
             <div className="space-y-3">
               {cinemas.map((cinema, index) => {
@@ -145,7 +153,7 @@ export function BookingPage() {
           </BookingPanel>
         </aside>
 
-        <section className="space-y-4">
+        <section className="min-w-0 space-y-4">
           <ReactFilmHall show={selectedShow} cinemaName={selectedCinema.name} selectedCount={selected.length} />
           <BookingPanel icon={Sparkles} eyebrow="Step 04" title="Select seats">
             <SeatMap seats={seats} selected={selected} onToggle={toggle} />
@@ -163,8 +171,9 @@ export function BookingPage() {
             </div>
           </motion.div>
 
-          <Link to="/checkout" className="mobile-hit-target block rounded-2xl bg-ember-gradient px-6 py-4 text-center font-bold shadow-glow">
-            Continue to Checkout
+          <Link to="/checkout" className="mobile-hit-target group relative block overflow-hidden rounded-2xl bg-ember-gradient px-6 py-4 text-center font-black shadow-glow">
+            <span className="absolute inset-y-0 -left-1/3 w-1/3 skew-x-12 bg-white/25 transition duration-700 group-hover:left-full" />
+            <span className="relative">Book Now • Continue to Checkout</span>
           </Link>
           <p className="flex items-center justify-center gap-2 text-xs text-muted">
             <ShieldCheck size={14} className="text-ember" /> Real-time locks release if checkout times out
