@@ -40,7 +40,7 @@ export function TopNav() {
     <header className="mobile-sticky-header sticky top-0 z-40 border-b border-white/5 bg-black/75 backdrop-blur-xl">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:py-4">
         <Link to="/" className="text-lg font-extrabold tracking-tight md:text-xl">
-          Movie <span className="ember-text">Hub</span>
+          SkyLite <span className="ember-text">Cinema</span>
         </Link>
 
         <div className="flex items-center gap-2 md:hidden">
@@ -116,7 +116,7 @@ export function AdminSidebar() {
   return (
     <aside className="glass cinema-scroll sticky top-6 hidden h-[calc(100vh-3rem)] w-72 shrink-0 overflow-y-auto rounded-[32px] p-4 lg:block">
       <Link to="/" className="mb-8 block px-3 text-2xl font-extrabold">
-        Lite <span className="ember-text">Cinema</span>
+        SkyLite <span className="ember-text">Cinema</span>
       </Link>
       <nav className="space-y-2">
         {admin.map(({ to, label, icon: Icon }) => (

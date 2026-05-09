@@ -1,4 +1,4 @@
-# Movie Hub / Lite Cinema
+# SkyLite Cinema
 
 A production-ready cinema ticket booking ecosystem with a premium dark cinematic interface, React customer/admin apps, Node.js API, Prisma/MySQL schema, real-time seat locking, QR tickets, food ordering, notifications, and RBAC.
 

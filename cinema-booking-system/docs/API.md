@@ -1,4 +1,4 @@
-# Movie Hub API Documentation
+# SkyLite Cinema API Documentation
 
 Base URL: `http://localhost:4000/api`
 

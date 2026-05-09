@@ -1,4 +1,4 @@
--- Operational reporting helpers for Movie Hub / Lite Cinema.
+-- Operational reporting helpers for SkyLite Cinema.
 CREATE OR REPLACE VIEW v_daily_revenue AS
 SELECT DATE(p.createdAt) AS revenue_date, COUNT(*) AS payments, SUM(p.amount) AS gross_revenue
 FROM payments p

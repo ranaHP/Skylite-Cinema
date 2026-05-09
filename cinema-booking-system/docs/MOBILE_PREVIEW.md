@@ -1,6 +1,6 @@
 # Mobile App Preview Guide
 
-Movie Hub is optimized as a mobile-first responsive web app and can be tested like an installable mobile app.
+SkyLite Cinema is optimized as a mobile-first responsive web app and can be tested like an installable mobile app.
 
 ## Browser device preview
 

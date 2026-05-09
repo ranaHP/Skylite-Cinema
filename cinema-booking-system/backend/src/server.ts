@@ -8,4 +8,4 @@ const app = createApp();
 const server = http.createServer(app);
 const io = new Server(server, { cors: { origin: env.CORS_ORIGIN, credentials: true } });
 registerSeatLockGateway(io);
-server.listen(env.PORT, () => logger.info(`Movie Hub API listening on ${env.PORT}`));
+server.listen(env.PORT, () => logger.info(`SkyLite Cinema API listening on ${env.PORT}`));

@@ -248,7 +248,7 @@ export function AdminSettings() {
         {fields.map((field) => (
           <label className="glass rounded-2xl p-4" key={field}>
             <span className="text-sm text-muted">{field}</span>
-            <input className="mt-2 w-full bg-transparent font-semibold outline-none" defaultValue={field === 'Site name' ? 'Movie Hub / Lite Cinema' : ''} />
+            <input className="mt-2 w-full bg-transparent font-semibold outline-none" defaultValue={field === 'Site name' ? 'SkyLite Cinema' : ''} />
           </label>
         ))}
       </div>
