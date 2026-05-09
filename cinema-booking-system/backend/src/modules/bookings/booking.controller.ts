@@ -1,0 +1,10 @@
+import type { Request, Response } from 'express';
+import { prisma } from '../../config/prisma.js';
+import { createBookingSchema, lockSeatsSchema } from '../../validators/booking.js';
+import { env } from '../../config/env.js';
+import { createBookingSafely } from './booking.service.js';
+import { sendBookingEmail } from '../../services/notificationService.js';
+export async function lockSeats(req: Request, res: Response) { const body = lockSeatsSchema.parse(req.body); const expires = new Date(Date.now() + env.BOOKING_LOCK_SECONDS * 1000); const updated = await prisma.showSeat.updateMany({ where: { showId: body.showId, seatId: { in: body.seatIds }, status: 'AVAILABLE', OR: [{ lockedUntil: null }, { lockedUntil: { lt: new Date() } }] }, data: { lockedByUserId: req.user!.id, lockedUntil: expires } }); if (updated.count !== body.seatIds.length) return res.status(409).json({ message: 'Some seats are already locked or booked' }); res.json({ lockedUntil: expires }); }
+export async function createBooking(req: Request, res: Response) { const body = createBookingSchema.parse(req.body); const booking = await createBookingSafely({ userId: req.user!.id, ...body }); await sendBookingEmail(req.user!.email, booking.bookingCode); res.status(201).json({ data: booking }); }
+export async function myBookings(req: Request, res: Response) { const data = await prisma.booking.findMany({ where: { userId: req.user!.id }, include: { show: { include: { movie: true, cinema: true, hall: true } }, items: true, ticket: true, payment: true }, orderBy: { createdAt: 'desc' } }); res.json({ data }); }
+export async function validateTicket(req: Request, res: Response) { const ticket = await prisma.ticket.findUnique({ where: { qrCode: req.body.qrCode } }); if (!ticket || ticket.status !== 'VALID') return res.status(409).json({ message: 'Ticket is invalid or already used' }); const used = await prisma.ticket.update({ where: { id: ticket.id }, data: { status: 'USED', usedAt: new Date(), usedByUserId: req.user!.id } }); res.json({ data: used }); }

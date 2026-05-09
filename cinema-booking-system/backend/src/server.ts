@@ -1,0 +1,11 @@
+import http from 'node:http';
+import { Server } from 'socket.io';
+import { createApp } from './app.js';
+import { env } from './config/env.js';
+import { logger } from './utils/logger.js';
+import { registerSeatLockGateway } from './modules/bookings/seatLock.gateway.js';
+const app = createApp();
+const server = http.createServer(app);
+const io = new Server(server, { cors: { origin: env.CORS_ORIGIN, credentials: true } });
+registerSeatLockGateway(io);
+server.listen(env.PORT, () => logger.info(`Movie Hub API listening on ${env.PORT}`));

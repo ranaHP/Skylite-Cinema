@@ -1,0 +1,4 @@
+import type { Request, Response } from 'express';
+import { prisma } from '../../config/prisma.js';
+export async function listMovies(req: Request, res: Response) { const { status, q } = req.query; const movies = await prisma.movie.findMany({ where: { status: typeof status === 'string' ? status as any : undefined, title: typeof q === 'string' ? { contains: q } : undefined }, include: { genres: { include: { genre: true } }, images: true, reviews: true }, orderBy: { createdAt: 'desc' } }); res.json({ data: movies }); }
+export async function getMovie(req: Request, res: Response) { const movie = await prisma.movie.findUniqueOrThrow({ where: { id: req.params.id }, include: { genres: { include: { genre: true } }, images: true, shows: { include: { cinema: true, hall: true } }, reviews: { include: { user: true } } } }); res.json({ data: movie }); }

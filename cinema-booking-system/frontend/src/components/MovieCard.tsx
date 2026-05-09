@@ -1,0 +1,5 @@
+import { motion } from 'framer-motion';
+import { Star } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import type { Movie } from '../types/domain';
+export function MovieCard({movie,featured=false}:{movie:Movie;featured?:boolean}){return <motion.article whileHover={{y:-8,scale:1.02}} className={`glass overflow-hidden rounded-[28px] ${featured?'md:col-span-2':''}`}><Link to={`/movies/${movie.id}`}><div className="relative aspect-[3/4] overflow-hidden"><img src={movie.poster} alt={movie.title} className="h-full w-full object-cover poster-mask transition duration-500 hover:scale-110"/><div className="absolute left-3 top-3 rounded-full bg-black/65 px-3 py-1 text-xs text-ember">{movie.status.replace('_',' ')}</div><div className="absolute bottom-3 left-3 right-3"><h3 className="text-lg font-bold">{movie.title}</h3><p className="text-sm text-muted">{movie.genre}</p><div className="mt-2 flex items-center gap-2"><Star size={16} className="fill-ember text-ember"/><span className="font-semibold">{movie.rating || 'Soon'}</span><span className="text-xs text-muted">• {movie.duration}</span></div></div></div></Link></motion.article>}
