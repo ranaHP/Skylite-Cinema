@@ -1,127 +1,74 @@
-import type { ReactNode } from 'react';
-import { motion } from 'framer-motion';
-import { ArrowRight, MapPin, Popcorn, Sparkles } from 'lucide-react';
-import { MovieCard } from '../components/MovieCard';
-import { AnimatedFilmStrip, CinematicHero, ScrollCinematicStory } from '../components/CinematicShowcase';
-import { cinemas, food, movies } from '../data';
+import { Link } from 'react-router-dom';
+import { Bookmark, ChevronRight, Film, Grid2X2, Home, Star, Target, Ticket } from 'lucide-react';
+import { movies } from '../data';
 
 export function HomePage() {
+  const featured = movies[0];
+  const nowShowing = movies.slice(1, 4);
+  const shortcuts = [
+    { label: 'Now Showing', icon: Grid2X2, active: true },
+    { label: 'Coming Soon', icon: Bookmark },
+    { label: 'Top Rated', icon: Star },
+    { label: 'Action', icon: Target },
+    { label: 'Action', icon: Film },
+  ];
+
   return (
-    <div className="space-y-9 pt-4 md:space-y-12 md:pt-6">
-      <CinematicHero movie={movies[0]} />
-      <AnimatedFilmStrip movies={movies} />
-
-      <Section title="Featured movies" action="Explore all">
-        <div className="featured-movie-rail cinema-scroll">
-          {movies.map((movie) => (
-            <motion.div
-              key={movie.id}
-              className="featured-movie-card mobile-card-snap"
-              initial={{ opacity: 0, y: 22 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-50px' }}
-              transition={{ duration: 0.45 }}
-            >
-              <MovieCard movie={movie} />
-            </motion.div>
-          ))}
+    <div className="mh-screen space-y-4 pb-2 pt-2">
+      <Link to={`/movies/${featured.id}`} className="relative block h-[184px] overflow-hidden rounded-xl bg-black">
+        <img src={featured.banner} alt={featured.title} className="absolute inset-0 h-full w-full object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/38 to-transparent" />
+        <div className="absolute left-4 top-9">
+          <p className="text-3xl font-light tracking-[.34em]">DUNE</p>
+          <p className="-mt-1 text-[10px] uppercase tracking-[.72em] text-ember">Part Two</p>
+          <p className="mt-2 text-xs leading-5 text-white/90">Sci-Fi, Adventure<br />2h 46m • 2024</p>
+          <span className="mt-2 inline-block rounded-md bg-[linear-gradient(180deg,#c4610b,#713000)] px-5 py-2 text-xs font-bold">Book Now</span>
         </div>
-      </Section>
+      </Link>
 
-      <ScrollCinematicStory movies={movies} />
-
-      <Section title="Cinema locations" action="Find near me">
-        <div className="cinema-scroll flex snap-x gap-3 overflow-x-auto pb-2 md:grid md:grid-cols-3 md:overflow-visible">
-          {cinemas.map((cinema, index) => (
-            <motion.div
-              key={cinema.id}
-              className="glass mobile-card-snap min-w-[82%] rounded-[28px] p-5 md:min-w-0"
-              initial={{ opacity: 0, x: 28 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.45, delay: index * 0.08 }}
-            >
-              <MapPin className="text-ember" />
-              <h3 className="mt-3 font-bold">{cinema.name}</h3>
-              <p className="text-sm text-muted">{cinema.address}</p>
-              <p className="mt-3 text-sm text-ember">
-                {cinema.distance} • ★ {cinema.rating}
-              </p>
-            </motion.div>
-          ))}
-        </div>
-      </Section>
-
-      <motion.section
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.55 }}
-        className="glass relative grid gap-6 overflow-hidden rounded-[32px] p-5 md:grid-cols-2 md:rounded-[36px] md:p-8"
-      >
-        <div className="absolute -right-24 -top-24 h-56 w-56 rounded-full bg-ember/20 blur-3xl" />
-        <div className="relative">
-          <Popcorn className="text-ember" size={34} />
-          <h2 className="mt-4 text-2xl font-bold leading-tight md:text-3xl">Food & drinks before the credits roll.</h2>
-          <p className="mt-3 text-sm leading-6 text-muted md:text-base">
-            Bundle combos during checkout or add food later from your ticket QR.
-          </p>
-        </div>
-        <div className="relative grid gap-3">
-          {food.map((item, index) => (
-            <motion.div
-              className="flex items-center gap-3 rounded-3xl bg-white/5 p-3"
-              key={item.id}
-              initial={{ opacity: 0, x: 24 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: index * 0.07 }}
-            >
-              <img src={item.image} alt={item.name} className="h-16 w-16 rounded-2xl object-cover" />
-              <div className="min-w-0 flex-1">
-                <p className="truncate font-semibold">{item.name}</p>
-                <p className="text-sm text-muted">{item.category}</p>
-              </div>
-              <b className="text-ember">${item.price}</b>
-            </motion.div>
-          ))}
-        </div>
-      </motion.section>
-
-      <motion.section
-        initial={{ opacity: 0, scale: 0.96 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.55 }}
-        className="relative overflow-hidden rounded-[32px] border border-ember/25 bg-ember-gradient p-6 text-center md:rounded-[36px] md:p-8"
-      >
-        <div className="film-grain opacity-30" />
-        <Sparkles className="relative mx-auto" />
-        <h2 className="relative mt-3 text-2xl font-bold md:text-3xl">Unlock members-only premieres</h2>
-        <p className="relative mx-auto mt-2 max-w-xl text-sm text-white/80 md:text-base">
-          Subscribe for reminders, offers, loyalty food bundles, and early seat access.
-        </p>
-        <div className="relative mx-auto mt-5 flex max-w-md gap-2 rounded-2xl bg-black/40 p-2">
-          <input className="min-w-0 flex-1 bg-transparent px-3 text-sm outline-none" placeholder="you@example.com" />
-          <button type="button" className="mobile-hit-target rounded-xl bg-black px-4 py-3">
-            <ArrowRight />
+      <div className="grid grid-cols-5 gap-2">
+        {shortcuts.map(({ label, icon: Icon, active }) => (
+          <button key={label} type="button" className="text-center">
+            <span className={`mx-auto grid h-12 w-12 place-items-center rounded-xl ${active ? 'bg-[linear-gradient(180deg,#c4610b,#713000)]' : 'bg-[#1b1b1b]'} text-white`}><Icon size={18} /></span>
+            <span className="mt-2 block truncate text-[10px] text-white">{label}</span>
           </button>
+        ))}
+      </div>
+
+      <section>
+        <div className="mb-3 flex items-center justify-between">
+          <h2 className="text-base font-medium text-ember">Now Showing</h2>
+          <Link to="/movies" className="flex items-center gap-1 text-xs text-white">See All <ChevronRight size={15} /></Link>
         </div>
-      </motion.section>
+        <div className="grid grid-cols-3 gap-3">
+          {nowShowing.map((movie) => <SmallMovie key={movie.id} movie={movie} />)}
+        </div>
+      </section>
+
+      <Link to="/booking/dune-2" className="mh-card flex items-center gap-4 rounded-2xl border-ember/70 p-3">
+        <img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=220&q=80" alt="cinema" className="h-20 w-28 rounded-lg object-cover" />
+        <div className="min-w-0 flex-1">
+          <h3 className="text-base font-bold leading-tight">Enjoy Your Movie To The Fullest</h3>
+          <p className="mt-1 text-xs leading-5 text-[#b3b3b3]">Book tickets for an easy and quick experience.</p>
+        </div>
+        <ChevronRight />
+      </Link>
     </div>
   );
 }
 
-function Section({ title, action, children }: { title: string; action: string; children: ReactNode }) {
+function SmallMovie({ movie }: { movie: typeof movies[number] }) {
   return (
-    <section>
-      <div className="mb-4 flex items-center justify-between md:mb-5">
-        <h2 className="text-2xl font-bold md:text-3xl">{title}</h2>
-        <button type="button" className="mobile-hit-target rounded-full px-2 text-sm text-ember">
-          {action}
-        </button>
+    <Link to={`/movies/${movie.id}`} className="mh-card relative overflow-hidden rounded-xl">
+      <div className="relative h-[142px]">
+        <img src={movie.poster} alt={movie.title} className="h-full w-full object-cover" />
+        <Bookmark className="absolute right-2 top-2 text-white" size={15} />
+        <p className="absolute bottom-2 left-2 flex items-center gap-1 text-[10px]"><Star size={11} fill="#f6b338" className="text-[#f6b338]" /> {movie.rating}</p>
       </div>
-      {children}
-    </section>
+      <div className="p-2">
+        <h3 className="line-clamp-2 min-h-[30px] text-xs font-bold">{movie.title}</h3>
+        <p className="truncate text-[9px] text-[#b3b3b3]">{movie.duration} • {movie.genre}</p>
+      </div>
+    </Link>
   );
 }

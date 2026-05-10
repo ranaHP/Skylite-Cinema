@@ -67,7 +67,7 @@ const contentBlocks = [
   { title: 'Terms & privacy', owner: 'Legal', status: 'Draft', action: 'Review content' },
 ];
 const assets = [
-  { name: 'f1-banner.svg', type: 'Hero banner', size: '92 KB', status: 'Live' },
+  { name: 'dune-banner.svg', type: 'Hero banner', size: '92 KB', status: 'Live' },
   { name: 'spider-neon-poster.webp', type: 'Poster', size: '420 KB', status: 'Pending review' },
   { name: 'combo-offer.png', type: 'Food promo', size: '310 KB', status: 'Live' },
 ];
@@ -109,7 +109,7 @@ export function AdminDashboard() {
         <AdminTable
           headers={['Event', 'Owner', 'Context', 'Status']}
           rows={[
-            ['BK45 checked in', 'Staff kiosk', 'F1 • Screen 5', 'Completed'],
+            ['BK45 checked in', 'Staff kiosk', 'Dune • Screen 5', 'Completed'],
             ['Show postponed', 'Cinema admin', 'Batman • Noir Screen', 'Needs notification'],
             ['Hero banner updated', 'Marketing', 'Home CMS', 'Published'],
           ]}

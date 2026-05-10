@@ -1,198 +1,69 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
 import { Link, useParams } from 'react-router-dom';
-import { CalendarDays, ChevronRight, Clock3, Heart, Languages, MapPin, Play, Search, ShieldCheck, Sparkles, Star, Ticket } from 'lucide-react';
-import { MovieCard } from '../components/MovieCard';
-import { cinemas, movies, shows } from '../data';
-import { money, shortDate } from '../utils/format';
+import { ArrowLeft, Bookmark, ChevronRight, Search, SlidersHorizontal, Star } from 'lucide-react';
+import { movies } from '../data';
 
 export function MoviesPage() {
-  const [q, setQ] = useState('');
-  const [tab, setTab] = useState<'NOW_SHOWING' | 'COMING_SOON'>('NOW_SHOWING');
-  const filtered = movies.filter(
-    (movie) => movie.status === tab && `${movie.title} ${movie.genre} ${movie.language}`.toLowerCase().includes(q.toLowerCase()),
-  );
-
   return (
-    <div className="py-6 md:py-8">
-      <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-        <div>
-          <p className="text-ember">Movies</p>
-          <h1 className="text-3xl font-black tracking-[-0.04em] md:text-4xl">Find your next big-screen escape</h1>
-        </div>
-        <label className="glass flex items-center gap-3 rounded-2xl px-4 py-3 md:w-96">
-          <Search className="text-muted" />
-          <input value={q} onChange={(event) => setQ(event.target.value)} className="min-w-0 flex-1 bg-transparent outline-none" placeholder="Search movies, heroes, theaters..." />
-        </label>
+    <div className="mh-screen pb-2 pt-4">
+      <div className="mb-5 flex items-center justify-between">
+        <h1 className="text-base font-semibold">Movie</h1>
+        <div className="flex gap-3 text-white"><SlidersHorizontal size={20} /><span className="relative"><SlidersHorizontal size={20} /><i className="absolute -right-1 -top-1 h-2 w-2 rounded-full bg-ember" /></span></div>
       </div>
-      <div className="cinema-scroll my-6 flex gap-3 overflow-x-auto pb-1">
-        {(['NOW_SHOWING', 'COMING_SOON'] as const).map((status) => (
-          <button
-            type="button"
-            onClick={() => setTab(status)}
-            className={`mobile-hit-target shrink-0 rounded-2xl px-5 py-3 ${tab === status ? 'bg-ember-gradient' : 'glass text-muted'}`}
-            key={status}
-          >
-            {status.replace('_', ' ')}
-          </button>
-        ))}
+      <label className="mh-search mb-3 flex h-10 items-center gap-2 rounded-lg px-3 text-sm"><Search size={17} /> Search Movies, Theaters...<SlidersHorizontal className="ml-auto text-white" size={18} /></label>
+      <div className="cinema-scroll mb-5 flex gap-2 overflow-x-auto pb-1">
+        {['Now Showing', 'Popular', 'Top Rated', 'Action'].map((tab, index) => <span key={tab} className={`mh-chip shrink-0 ${index === 0 ? 'mh-chip-active' : ''}`}>{tab}</span>)}
       </div>
-      <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-        {filtered.map((movie) => (
-          <MovieCard key={movie.id} movie={movie} />
-        ))}
+      <div className="grid grid-cols-2 gap-5">
+        {movies.slice(4, 8).concat(movies.slice(0, 2)).map((movie) => <MovieTile key={movie.id} movie={movie} />)}
       </div>
     </div>
+  );
+}
+
+function MovieTile({ movie }: { movie: typeof movies[number] }) {
+  return (
+    <Link to={`/movies/${movie.id}`} className="mh-card overflow-hidden rounded-xl">
+      <div className="relative h-[172px]">
+        <img src={movie.poster} alt={movie.title} className="h-full w-full object-cover" />
+        <Bookmark className="absolute right-2 top-2 text-white" size={17} />
+        <p className="absolute bottom-2 left-2 flex items-center gap-1 text-[10px]"><Star size={11} fill="#f6b338" className="text-[#f6b338]" /> {movie.rating}</p>
+      </div>
+      <div className="bg-[#171717] p-2">
+        <h3 className="truncate text-xs font-bold">{movie.title}</h3>
+        <p className="mt-1 truncate text-[10px] text-[#b3b3b3]">★ {movie.rating} &nbsp; {movie.genre}</p>
+      </div>
+    </Link>
   );
 }
 
 export function MovieDetailsPage() {
   const { id } = useParams();
   const movie = movies.find((item) => item.id === id) ?? movies[0];
-  const available = shows.filter((show) => show.movieId === movie.id);
-  const recommended = movies.filter((item) => item.id !== movie.id).slice(0, 4);
+  const cast = [
+    ['Timothée Chalamet', 'Paul Atreides', 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=160&q=80'],
+    ['Zendaya', 'Chani', 'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=160&q=80'],
+    ['Rebecca Ferguson', 'Lady Jessica', 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=160&q=80'],
+  ];
 
   return (
-    <div className="space-y-6 py-4 md:py-6">
-      <section className="movie-detail-hero relative overflow-hidden rounded-[34px] border border-ember/25 bg-black shadow-glow md:rounded-[44px]">
-        <img src={movie.banner} alt={`${movie.title} animated background`} className="absolute inset-0 h-full w-full scale-105 object-cover opacity-45" />
-        <div className="animated-video-backdrop" />
-        <div className="film-grain opacity-25" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/82 to-black/20 md:bg-gradient-to-r" />
-        <div className="relative p-5 md:p-10">
-          <nav className="mb-5 flex flex-wrap items-center gap-2 text-xs text-muted">
-            <Link to="/" className="hover:text-ember">Home</Link>
-            <ChevronRight size={14} />
-            <Link to="/movies" className="hover:text-ember">Movies</Link>
-            <ChevronRight size={14} />
-            <span className="text-ember">{movie.title}</span>
-          </nav>
-
-          <div className="grid gap-6 md:grid-cols-[280px_1fr] md:items-end">
-            <motion.div initial={{ opacity: 0, rotate: -4, y: 20 }} animate={{ opacity: 1, rotate: -1, y: 0 }} className="hero-poster-card glass mx-auto w-52 rounded-[30px] p-3 md:mx-0 md:w-full">
-              <img src={movie.poster} alt={movie.title} className="aspect-[3/4] w-full rounded-[22px] object-cover" />
-            </motion.div>
-
-            <motion.div initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
-              <div className="flex flex-wrap gap-2">
-                <span className="rounded-full border border-ember/30 bg-ember/15 px-4 py-2 text-xs font-bold text-ember">{movie.status.replace('_', ' ')}</span>
-                <span className="rounded-full bg-white/10 px-4 py-2 text-xs font-bold">{movie.ageRating}</span>
-                <span className="rounded-full bg-white/10 px-4 py-2 text-xs font-bold"><Languages className="mr-1 inline" size={13} /> {movie.language}</span>
-              </div>
-              <h1 className="mt-4 text-4xl font-black leading-none tracking-[-0.05em] md:text-7xl">{movie.title}</h1>
-              <p className="mt-3 text-sm text-muted md:text-base">{movie.genre} • {movie.duration}</p>
-              <p className="mt-5 max-w-3xl text-sm leading-7 text-white/78 md:text-base md:leading-8">{movie.synopsis}</p>
-
-              <div className="mt-6 grid grid-cols-2 gap-3 md:flex md:flex-wrap">
-                <Link to={`/booking/${movie.id}`} className="mobile-hit-target rounded-2xl bg-ember-gradient px-5 py-4 text-center font-black shadow-glow">
-                  <Ticket className="mr-2 inline" size={18} /> Book Now
-                </Link>
-                <button type="button" className="mobile-hit-target rounded-2xl border border-ember/30 bg-black/40 px-5 py-4 font-bold text-ember backdrop-blur-xl">
-                  <Play className="mr-2 inline" size={18} /> Trailer
-                </button>
-                <button type="button" className="mobile-hit-target col-span-2 rounded-2xl border border-white/15 bg-white/5 px-5 py-4 font-bold md:col-span-1">
-                  <Heart className="mr-2 inline" size={18} /> Watchlist
-                </button>
-              </div>
-            </motion.div>
-          </div>
+    <div className="mh-screen -mx-3 -mt-0 pb-5">
+      <section className="relative h-[470px] overflow-hidden">
+        <img src={movie.banner} alt={movie.title} className="absolute inset-0 h-full w-full object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/30 to-black/10" />
+        <Link to="/movies" className="absolute left-4 top-5 z-10"><ArrowLeft size={22} /></Link>
+        <div className="absolute inset-x-0 bottom-0 px-5 pb-3">
+          <h1 className="text-2xl font-semibold">{movie.title}</h1>
+          <div className="mt-2 flex items-center gap-3 text-xs text-[#d6d6d6]"><span className="flex items-center gap-1"><Star size={13} fill="#f6b338" className="text-[#f6b338]" /> {movie.rating}</span><span>2024</span><span>Sci-Fi, Adventure, Drama</span><span className="rounded bg-[#2a2a2a] px-2 py-1 text-[10px]">PG-13</span></div>
         </div>
       </section>
-
-      <div className="grid gap-6 lg:grid-cols-[1fr_360px]">
-        <section className="glass rounded-[32px] p-5 md:p-6">
-          <div className="mb-5 flex items-center justify-between gap-3">
-            <div>
-              <p className="text-sm font-semibold text-ember">Available theaters</p>
-              <h2 className="text-2xl font-black">Pick a showtime</h2>
-            </div>
-            <Sparkles className="text-ember" />
-          </div>
-          <div className="grid gap-3">
-            {available.map((show, index) => {
-              const cinema = cinemas.find((item) => item.id === show.cinemaId)!;
-              return (
-                <motion.div
-                  key={show.id}
-                  initial={{ opacity: 0, y: 22 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.06 }}
-                  className="rounded-[26px] border border-white/10 bg-white/[0.04] p-4"
-                >
-                  <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                    <div className="min-w-0">
-                      <h3 className="font-black">{cinema.name}</h3>
-                      <p className="mt-1 flex items-center gap-2 text-sm text-muted"><MapPin size={14} className="text-ember" /> {cinema.address}</p>
-                      <div className="mt-3 flex flex-wrap gap-2 text-xs text-muted">
-                        <span className="rounded-full bg-white/5 px-3 py-1"><CalendarDays className="mr-1 inline" size={13} /> {shortDate(show.date)}</span>
-                        <span className="rounded-full bg-white/5 px-3 py-1"><Clock3 className="mr-1 inline" size={13} /> {show.time}</span>
-                        <span className="rounded-full bg-white/5 px-3 py-1">{show.hall}</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-between gap-3 sm:block sm:text-right">
-                      <p className="text-sm text-muted">From</p>
-                      <p className="text-xl font-black text-ember">{money(show.basePrice)}</p>
-                      <Link to={`/booking/${movie.id}`} className="mt-0 inline-flex rounded-2xl bg-ember-gradient px-4 py-3 text-sm font-black shadow-glow sm:mt-3">
-                        Book Now
-                      </Link>
-                    </div>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
+      <main className="space-y-5 px-5">
+        <section><h2 className="mb-2 text-lg font-semibold">Overview</h2><p className="text-sm leading-6 text-[#b3b3b3]">{movie.synopsis}</p></section>
+        <section>
+          <div className="mb-3 flex items-center justify-between"><h2 className="text-lg font-semibold">Cast</h2><button className="flex items-center gap-1 text-sm text-ember">View All <ChevronRight size={14} /></button></div>
+          <div className="cinema-scroll flex gap-4 overflow-x-auto pb-2">{cast.map(([name, role, img]) => <div key={name} className="w-24 shrink-0"><img src={img} alt={name} className="h-24 w-24 rounded-lg object-cover" /><p className="mt-2 truncate text-xs font-bold">{name}</p><p className="truncate text-[11px] text-[#b3b3b3]">{role}</p></div>)}</div>
         </section>
-
-        <aside className="space-y-4">
-          <section className="glass rounded-[32px] p-5 md:p-6">
-            <h3 className="font-black">Film details</h3>
-            <div className="mt-4 grid grid-cols-2 gap-3 text-sm">
-              <Info label="Rating" value={movie.rating ? `${movie.rating}/10` : 'Coming soon'} />
-              <Info label="Duration" value={movie.duration} />
-              <Info label="Language" value={movie.language} />
-              <Info label="Status" value={movie.status.replace('_', ' ')} />
-            </div>
-            <p className="mt-4 flex items-center gap-2 text-sm text-muted"><ShieldCheck size={16} className="text-ember" /> Secure checkout with real-time seat locks.</p>
-          </section>
-
-          <section className="glass rounded-[32px] p-5 md:p-6">
-            <h3 className="font-black">Cast & crew</h3>
-            <div className="mt-4 space-y-3">
-              {movie.cast.map((cast) => (
-                <div className="flex items-center gap-3" key={cast}>
-                  <div className="grid h-10 w-10 place-items-center rounded-full bg-ember/20 text-xs font-black text-ember">{cast.slice(0, 1)}</div>
-                  <span>{cast}</span>
-                </div>
-              ))}
-            </div>
-            <div className="mt-6 flex items-center gap-2 text-ember"><Star className="fill-ember" /> {movie.rating || 'Coming soon'}</div>
-          </section>
-        </aside>
-      </div>
-
-      <section>
-        <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-2xl font-black">More cinematic picks</h2>
-          <Link to="/movies" className="text-sm text-ember">View all</Link>
-        </div>
-        <div className="featured-movie-rail cinema-scroll">
-          {recommended.map((item) => (
-            <div key={item.id} className="featured-movie-card">
-              <MovieCard movie={item} />
-            </div>
-          ))}
-        </div>
-      </section>
-    </div>
-  );
-}
-
-function Info({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="rounded-2xl bg-white/5 p-3">
-      <p className="text-xs text-muted">{label}</p>
-      <p className="mt-1 font-bold">{value}</p>
+        <Link to={`/booking/${movie.id}`} className="mh-button block py-4 text-center">Book Tickets</Link>
+      </main>
     </div>
   );
 }

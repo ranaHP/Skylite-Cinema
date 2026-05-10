@@ -2,7 +2,6 @@ import { useMemo, useState, type ReactNode } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Check, ChevronLeft, CreditCard, LockKeyhole, Plus, Shield, Sparkles, TicketCheck, Wifi, type LucideIcon } from 'lucide-react';
-import { TicketCard } from '../components/TicketCard';
 import { demoBooking, food, movies, shows } from '../data';
 import { money, shortDate } from '../utils/format';
 
@@ -102,4 +101,18 @@ function SummaryPill({ label, value }: { label: string; value: string }) { retur
 function PaymentCard({ brand, last, active = false }: { brand: string; last: string; active?: boolean }) { return <div className={`rounded-3xl border p-4 ${active ? 'border-ember bg-ember-gradient' : 'border-white/10 bg-white/5'}`}><div className="flex justify-between"><b>{brand}</b>{active && <span className="text-xs"><Check size={14} className="inline" /> DEFAULT</span>}</div><p className="mt-4">**** **** **** {last}</p><div className="mt-4 flex justify-between text-xs"><span>Card Holder<br />Mohamed</span><Wifi /></div></div>; }
 function Line({ k, v, strong = false }: { k: string; v: string; strong?: boolean }) { return <div className={`flex justify-between py-2 ${strong ? 'text-xl font-black' : 'text-sm text-muted'}`}><span>{k}</span><span>{v}</span></div>; }
 
-export function ConfirmationPage() { return <div className="py-8 text-center"><div className="mx-auto mb-5 grid h-24 w-24 place-items-center rounded-full border border-ember text-ember"><Check size={44} /></div><h1 className="text-3xl font-black">Booking Confirmed!</h1><p className="mt-2 text-muted">Your tickets have been booked successfully.</p><div className="mt-6"><TicketCard /></div><div className="mx-auto mt-5 grid max-w-md gap-3"><Link to="/tickets" className="rounded-2xl bg-ember-gradient py-4 font-bold">View Tickets</Link><Link to="/" className="rounded-2xl bg-white/10 py-4 font-bold">Back To Home</Link></div></div>; }
+export function ConfirmationPage() {
+  return (
+    <div className="mh-screen -mx-3 space-y-5 px-3 pt-5 text-center">
+      <Link to="/checkout" className="absolute left-4 top-5"><ChevronLeft size={22} /></Link>
+      <div className="mx-auto grid h-20 w-20 place-items-center rounded-full border border-ember text-ember"><Check size={42} /></div>
+      <div><h1 className="text-2xl font-bold">Booking Confirmed!</h1><p className="mt-1 text-sm text-[#b3b3b3]">Your Tickets Have Been Booked Successfully.</p></div>
+      <section className="overflow-hidden rounded-xl bg-[#151515] text-left">
+        <div className="flex gap-4 p-4"><img src={demoBooking.movie.poster} alt={demoBooking.movie.title} className="h-32 w-32 rounded-lg object-cover"/><div className="min-w-0 flex-1"><div className="flex justify-between"><h2 className="font-bold">{demoBooking.movie.title}</h2><span>⋮</span></div><p className="text-xs text-[#b3b3b3]">Sci-Fi, Adventure</p><p className="mt-4 space-y-2 text-xs text-[#d6d6d6]">📅 Fri, May 24, 2024<br/>🕒 07:45 PM<br/>📍 JCX Cinema 25<br/>🎟️ Screen 5 • Row F • Seats 14, 15</p></div></div>
+        <div className="grid grid-cols-4 border-y border-dashed border-white/10 p-3 text-[10px] text-[#b3b3b3]"><span>BOOKING ID<br/><b className="text-white">BK45</b></span><span>DATE<br/><b className="text-white">17.05.24</b></span><span>TOTAL<br/><b className="text-white">$72.00</b></span><span>PAYMENT<br/><b className="text-white">•••• 4242</b></span></div>
+        <div className="grid place-items-center p-6"><div className="grid h-40 w-40 place-items-center rounded-lg bg-white text-black"><span className="text-8xl">▦</span></div></div>
+      </section>
+      <div className="space-y-3"><Link to="/tickets" className="mh-button block py-4">View Tickets</Link><Link to="/" className="mh-button block py-4">Back To Home</Link></div>
+    </div>
+  );
+}
